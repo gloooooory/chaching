@@ -10,7 +10,7 @@ const Splash = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace(navigationStrings.FAILED);
+      navigation.replace(navigationStrings.TAB_BAR);
     }, 1000);
   }, []);
 

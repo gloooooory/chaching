@@ -34,5 +34,6 @@ export default {
   settingTabIcon: require("../assets/images/settingTabIcon.png"),
   profileTabIcon: require("../assets/images/profileTabIcon.png"),
 
+  ///////////SOUND-FILE///////
   soundFile: require("../assets/audios/cash-register-sound.mp3"),
 };

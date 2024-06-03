@@ -26,7 +26,7 @@ import navigationStrings from "../../constants/navigationStrings";
 const EnterCode = ({ navigation }) => {
   const onClear = () => {};
 
-  const CELL_COUNT = 4;
+  const CELL_COUNT = 7;
 
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -66,13 +66,13 @@ const EnterCode = ({ navigation }) => {
 
   return (
     <WrapperComp isInsets isBottomInsets>
-      <AuthHeader headTxt={"Enter 4-digit code"} />
+      <AuthHeader headTxt={"Enter 7-digit code"} />
       <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View
           style={{
             flex: 1,
             marginTop: moderateScale(60),
-            paddingHorizontal: 30,
+            paddingHorizontal: 20,
             flexDirection: "column",
             gap: 16,
           }}
@@ -141,15 +141,15 @@ const styles = StyleSheet.create({
   title: { textAlign: "center", fontSize: 30 },
   codeFieldRoot: { marginTop: 20 },
   cell: {
-    width: width / 6,
-    height: 80,
-    lineHeight: 80,
+    width: width / 9,
+    height: 60,
+    lineHeight: 60,
     fontSize: 22,
     borderWidth: 2,
     borderColor: "#3A3A3A",
     textAlign: "center",
     borderRadius: 12,
-    marginRight: 17,
+    // marginRight: 17,
     color: colors.white,
     fontFamily: fontFamily.medium,
   },
