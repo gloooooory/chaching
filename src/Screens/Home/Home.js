@@ -10,11 +10,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Linking,
 } from "react-native";
 import { MotiView } from "moti";
 import { check, request, PERMISSIONS, RESULTS } from "react-native-permissions";
 import { Easing } from "react-native-reanimated";
-// import * as mm from 'music-metadata';
 
 import WrapperComp from "../../Components/WrapperComp";
 import imagePath from "../../constants/imagePath";
@@ -43,6 +43,7 @@ const Home = () => {
     }
 
     const result = await request(permission);
+
     return result === RESULTS.GRANTED;
   };
 
@@ -51,29 +52,53 @@ const Home = () => {
   };
 
   const handleSpeechEnd = () => {
+    // console.log(e, "sdfkjbsdkfn");
     console.log("Speech recognition ended");
     setIsRecord(false);
   };
 
   const handleSpeechResults = event => {
+    console.log(event.value[0], "event.value[0]");
     const transcript = event.value[0].replace(/ /g, "");
-    console.log("transcript = ", transcript);
-    const fourDigitNumbers = transcript.match(/\b\d{4}\b/g);
-    if (fourDigitNumbers) {
-      console.log("Four-digit numbers:", fourDigitNumbers.join(" "));
+    let newTranscript = transcript?.replace(/[-,' ']/g, "");
+    const fourDigitNumbers = newTranscript?.slice(0, 7);
+    if (fourDigitNumbers?.length === 7) {
       setFourDigit(fourDigitNumbers);
     } else {
-      console.log("No four-digit numbers found.");
+      console.log("No seven-digit numbers found.");
     }
+  };
+
+  const onOpenSettings = async () => {
+    await Linking.openSettings();
   };
 
   const handleSpeechError = error => {
     console.error("Speech recognition error:", error);
+
+    if (error?.error?.message === "User denied access to speech recognition") {
+      Alert.alert(
+        "Permission denied",
+        "User denied access to speech recognition",
+        [
+          {
+            text: "Open Settings",
+            onPress: () => onOpenSettings(),
+          },
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+        ],
+        { cancelable: false }
+      );
+    }
     setIsRecord(false);
   };
 
   const startRecording = async () => {
     const hasPermission = await requestMicrophonePermission();
+
     if (!hasPermission) {
       Alert.alert(
         "Permissions Required",
@@ -82,7 +107,7 @@ const Home = () => {
       return;
     }
 
-    Voice.start("en-US");
+    await Voice.start("en-US");
     setIsRecord(true);
   };
 
@@ -100,9 +125,10 @@ const Home = () => {
         msg: "Found Advertisement",
         url: res.url,
       });
-
-      console.log("[res of getAdvertise] = ", res);
     } catch (error) {
+      // Alert.alert("Verification Code is Invalid");
+      navigation.navigate(navigationStrings.FAILED);
+      setFourDigit(null);
       console.log(error);
     } finally {
       setIsUploading(false);
@@ -116,7 +142,9 @@ const Home = () => {
         await Voice.getSpeechRecognitionServices()
       );
     };
-    ss();
+    if (Platform.OS === "android") {
+      ss();
+    }
 
     Voice.onSpeechStart = handleSpeechStart;
     Voice.onSpeechEnd = handleSpeechEnd;
@@ -198,6 +226,7 @@ const Home = () => {
           </Text>
         </View>
         <Text style={styles.tapTxt}>{description}</Text>
+        {isUploading && <Text style={styles.pleaseTxt}>Please wait</Text>}
         <View
           style={{
             height: 80,
@@ -248,5 +277,14 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: "500",
     textAlign: "center",
+    fontFamily: fontFamily.medium,
+  },
+  pleaseTxt: {
+    color: colors.gray,
+    fontSize: textScale(14),
+    fontWeight: "500",
+    textAlign: "center",
+    fontFamily: fontFamily.medium,
+    marginTop: 10,
   },
 });

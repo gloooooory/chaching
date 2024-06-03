@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   Linking,
   StyleSheet,
   Text,
@@ -24,9 +25,11 @@ import { getAdvertise } from "../../redux/actions/promoCodeAction";
 import navigationStrings from "../../constants/navigationStrings";
 
 const EnterCode = ({ navigation }) => {
-  const onClear = () => {};
+  const onClear = () => {
+    setValue("");
+  };
 
-  const CELL_COUNT = 4;
+  const CELL_COUNT = 7;
 
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -39,40 +42,37 @@ const EnterCode = ({ navigation }) => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async () => {
-    if (value / 1000 < 1) {
+    if (value?.length < 7) {
       setErrorMsg("Input correct code.");
       return;
     }
+    setErrorMsg("");
 
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       console.log("[code] = ", value);
       const res = await getAdvertise(value);
+      setIsLoading(false);
 
       navigation.navigate(navigationStrings.SUCCESS, {
         msg: "Found Advertisement",
         url: res.url,
       });
-      // Linking.openURL(res.url);
-
-      console.log("[res] = ", res);
-      setErrorMsg("");
     } catch (error) {
-      console.log(error);
-      setErrorMsg("Not found any ad.");
+      navigation.navigate(navigationStrings.FAILED);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
     <WrapperComp isInsets isBottomInsets>
-      <AuthHeader headTxt={"Enter 4-digit code"} />
+      <AuthHeader headTxt={"Enter 7-digit code"} />
       <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View
           style={{
             flex: 1,
             marginTop: moderateScale(60),
-            paddingHorizontal: 30,
+            paddingHorizontal: 20,
             flexDirection: "column",
             gap: 16,
           }}
@@ -85,13 +85,13 @@ const EnterCode = ({ navigation }) => {
             onChangeText={setValue}
             cellCount={CELL_COUNT}
             rootStyle={styles.codeFieldRoot}
-            keyboardType="number-pad"
+            // keyboardType="number-pad"
             textContentType="oneTimeCode"
-            autoComplete={Platform.select({
-              android: "sms-otp",
-              default: "one-time-code",
-            })}
-            testID="my-code-input"
+            // autoComplete={Platform.select({
+            //   android: "sms-otp",
+            //   default: "one-time-code",
+            // })}
+            // testID="my-code-input"
             renderCell={({ index, symbol, isFocused }) => (
               <Text
                 key={index}
@@ -141,15 +141,15 @@ const styles = StyleSheet.create({
   title: { textAlign: "center", fontSize: 30 },
   codeFieldRoot: { marginTop: 20 },
   cell: {
-    width: width / 6,
-    height: 80,
-    lineHeight: 80,
+    width: width / 9,
+    height: 60,
+    lineHeight: 60,
     fontSize: 22,
     borderWidth: 2,
     borderColor: "#3A3A3A",
     textAlign: "center",
     borderRadius: 12,
-    marginRight: 17,
+    // marginRight: 17,
     color: colors.white,
     fontFamily: fontFamily.medium,
   },

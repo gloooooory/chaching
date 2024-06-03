@@ -24,12 +24,26 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
+
+	<key>NSMicrophoneUsageDescription</key>
+<string>Give Chaching permission to use your microphone. Your record wont be shared without your permission.</string>
+
+
+<key>NSSpeechRecognitionUsageDescription</key>
+<string></string>
+
+<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
@@ -55,7 +69,6 @@
 		<string>Matter-Regular.ttf</string>
 		<string>Matter-SemiBold.ttf</string>
 	</array>
-	<key>NSMicrophoneUsageDescription</key>
-<string>Give Chaching permission to use your microphone. Your record wont be shared without your permission.</string>
+
 </dict>
 </plist>
