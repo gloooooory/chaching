@@ -18,14 +18,14 @@ const Failed = () => {
 
   const navigation = useNavigation();
 
-  useFocusEffect(
-    useCallback(() => {
-      playSound();
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     playSound();
+  //   }, [])
+  // );
 
   const onPress = () => {
-    navigation?.navigate(navigationStrings.HOME);
+    navigation?.goBack();
   };
 
   return (

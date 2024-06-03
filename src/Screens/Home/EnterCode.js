@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   Linking,
   StyleSheet,
   Text,
@@ -24,7 +25,9 @@ import { getAdvertise } from "../../redux/actions/promoCodeAction";
 import navigationStrings from "../../constants/navigationStrings";
 
 const EnterCode = ({ navigation }) => {
-  const onClear = () => {};
+  const onClear = () => {
+    setValue("");
+  };
 
   const CELL_COUNT = 7;
 
@@ -39,29 +42,26 @@ const EnterCode = ({ navigation }) => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async () => {
-    if (value / 1000 < 1) {
+    if (value?.length < 7) {
       setErrorMsg("Input correct code.");
       return;
     }
+    setErrorMsg("");
 
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       console.log("[code] = ", value);
       const res = await getAdvertise(value);
+      setIsLoading(false);
 
       navigation.navigate(navigationStrings.SUCCESS, {
         msg: "Found Advertisement",
         url: res.url,
       });
-      // Linking.openURL(res.url);
-
-      console.log("[res] = ", res);
-      setErrorMsg("");
     } catch (error) {
-      console.log(error);
-      setErrorMsg("Not found any ad.");
+      navigation.navigate(navigationStrings.FAILED);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -85,13 +85,13 @@ const EnterCode = ({ navigation }) => {
             onChangeText={setValue}
             cellCount={CELL_COUNT}
             rootStyle={styles.codeFieldRoot}
-            keyboardType="number-pad"
+            // keyboardType="number-pad"
             textContentType="oneTimeCode"
-            autoComplete={Platform.select({
-              android: "sms-otp",
-              default: "one-time-code",
-            })}
-            testID="my-code-input"
+            // autoComplete={Platform.select({
+            //   android: "sms-otp",
+            //   default: "one-time-code",
+            // })}
+            // testID="my-code-input"
             renderCell={({ index, symbol, isFocused }) => (
               <Text
                 key={index}

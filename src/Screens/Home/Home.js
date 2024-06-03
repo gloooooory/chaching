@@ -52,6 +52,7 @@ const Home = () => {
   };
 
   const handleSpeechEnd = () => {
+    // console.log(e, "sdfkjbsdkfn");
     console.log("Speech recognition ended");
     setIsRecord(false);
   };
@@ -59,10 +60,9 @@ const Home = () => {
   const handleSpeechResults = event => {
     console.log(event.value[0], "event.value[0]");
     const transcript = event.value[0].replace(/ /g, "");
-    console.log("transcript = ", transcript);
-    let newTranscript = transcript?.replace(/[-]/g, "");
-    const fourDigitNumbers = newTranscript?.match(/\b\d{7}\b/g);
-    if (fourDigitNumbers) {
+    let newTranscript = transcript?.replace(/[-,' ']/g, "");
+    const fourDigitNumbers = newTranscript?.slice(0, 7);
+    if (fourDigitNumbers?.length === 7) {
       setFourDigit(fourDigitNumbers);
     } else {
       console.log("No seven-digit numbers found.");
@@ -126,6 +126,9 @@ const Home = () => {
         url: res.url,
       });
     } catch (error) {
+      // Alert.alert("Verification Code is Invalid");
+      navigation.navigate(navigationStrings.FAILED);
+      setFourDigit(null);
       console.log(error);
     } finally {
       setIsUploading(false);

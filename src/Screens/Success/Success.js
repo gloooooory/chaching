@@ -1,5 +1,5 @@
 import { Image, Linking, StyleSheet, Text, View } from "react-native";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import AuthImageBackground from "../../Components/AuthImageBackground";
 import imagePath from "../../constants/imagePath";
 import fontFamily from "../../styles/fontFamily";
@@ -21,15 +21,17 @@ const Success = () => {
 
   const navigation = useNavigation();
 
-  useFocusEffect(
-    useCallback(() => {
-      playSound();
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     playSound();
+  //   }, [])
+  // );
 
   const onPressOk = () => {
     if (url) {
-      Linking.openURL(url);
+      Linking.openURL(url).then(() => {
+        navigation?.navigate(navigationStrings.TAB_BAR);
+      });
     } else {
       navigation?.navigate(navigationStrings.TAB_BAR);
     }
