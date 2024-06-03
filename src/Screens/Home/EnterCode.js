@@ -82,7 +82,9 @@ const EnterCode = ({ navigation }) => {
             {...props}
             // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
             value={value}
-            onChangeText={setValue}
+            onChangeText={val => {
+              setValue(val.toUpperCase());
+            }}
             cellCount={CELL_COUNT}
             rootStyle={styles.codeFieldRoot}
             // keyboardType="number-pad"

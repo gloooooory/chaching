@@ -63,7 +63,7 @@ const Home = () => {
     let newTranscript = transcript?.replace(/[-,' ']/g, "");
     const fourDigitNumbers = newTranscript?.slice(0, 7);
     if (fourDigitNumbers?.length === 7) {
-      setFourDigit(fourDigitNumbers);
+      setFourDigit(fourDigitNumbers.toUpperCase());
     } else {
       console.log("No seven-digit numbers found.");
     }
