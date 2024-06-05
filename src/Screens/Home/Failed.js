@@ -1,28 +1,24 @@
-import { Image, Linking, StyleSheet, Text, View } from "react-native";
-import React, { useCallback } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect } from "react";
 import AuthImageBackground from "../../Components/AuthImageBackground";
-import imagePath from "../../constants/imagePath";
 import fontFamily from "../../styles/fontFamily";
 import colors from "../../styles/colors";
 import ButtonComp from "../../Components/ButtonComp";
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
-import navigationStrings from "../../constants/navigationStrings";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { playSound } from "../../helper/helperFunctions";
 
 const Failed = () => {
-  const route = useRoute();
-
   const navigation = useNavigation();
 
   // useFocusEffect(
   //   useCallback(() => {
-  //     playSound();
+
   //   }, [])
   // );
+
+  useEffect(() => {
+    playSound();
+  }, []);
 
   const onPress = () => {
     navigation?.goBack();
@@ -31,7 +27,6 @@ const Failed = () => {
   return (
     <AuthImageBackground>
       <View style={{ flex: 1, marginTop: "30%", alignItems: "center" }}>
-        {/* <Image source={imagePath.successTick} /> */}
         <View style={{ marginTop: 160, paddingHorizontal: 47 }}>
           <Text style={styles.successTxt}>Not found advertisement!</Text>
           <Text style={styles.descTxt}>Please try again!</Text>

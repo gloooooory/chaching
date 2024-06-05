@@ -1,6 +1,7 @@
 import { showMessage } from "react-native-flash-message";
 import Sound from "react-native-sound";
 import imagePath from "../constants/imagePath";
+import { useMemo } from "react";
 
 // const showError = message => {
 //   showMessage({
@@ -30,26 +31,18 @@ import imagePath from "../constants/imagePath";
 // export {showError, showSuccess};
 
 export const addAlpha = (color, opacity) => {
-  // coerce values so ti is between 0 and 1.
   const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
   return color + _opacity.toString(16).toUpperCase();
 };
 
 export const playSound = () => {
-  console.log("Play Sound!");
-  const sound = new Sound(imagePath.soundFile, Sound.MAIN_BUNDLE, error => {
+  const sound = new Sound(imagePath.soundFile, error => {
     if (error) {
-      console.log("Failed to load the sound", error);
-      return;
-    }
-    console.log("Sound loaded successfully");
-    sound.play(success => {
-      if (success) {
-        console.log("Successfully finished playing");
-      } else {
-        console.log("Playback failed due to audio decoding errors");
+      console.log("failed to load the sound", error);
+    } else {
+      if (!sound.isPlaying()) {
+        sound.play();
       }
-      sound.release();
-    });
+    }
   });
 };

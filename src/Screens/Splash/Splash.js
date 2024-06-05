@@ -1,9 +1,10 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import imagePath from "../../constants/imagePath";
 import colors from "../../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 import navigationStrings from "../../constants/navigationStrings";
+import { playSound } from "../../helper/helperFunctions";
 
 const Splash = () => {
   const navigation = useNavigation();
