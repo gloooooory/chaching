@@ -35,5 +35,5 @@ export default {
   profileTabIcon: require("../assets/images/profileTabIcon.png"),
 
   ///////////SOUND-FILE///////
-  soundFile: require("../assets/audios/cash-register-sound.mp3"),
+  soundFile: require("../assets/sounds/cash_sound.mp3"),
 };

@@ -21,11 +21,11 @@ const Success = () => {
 
   const navigation = useNavigation();
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     playSound();
-  //   }, [])
-  // );
+  useFocusEffect(
+    useCallback(() => {
+      playSound();
+    }, [])
+  );
 
   const onPressOk = () => {
     if (url) {
