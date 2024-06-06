@@ -1,6 +1,7 @@
 import { showMessage } from "react-native-flash-message";
 import Sound from "react-native-sound";
 import imagePath from "../constants/imagePath";
+import Toast from "react-native-toast-message";
 
 // const showError = message => {
 //   showMessage({
@@ -51,5 +52,35 @@ export const playSound = () => {
       }
       sound.release();
     });
+  });
+};
+
+export const showErrorToast = message => {
+  Toast.show({
+    type: "error",
+    text1: "Error!",
+    text2: message,
+    visibilityTime: 2500,
+    text2Style: { fontSize: 20, color: "black" },
+  });
+};
+
+export const showSuccessToast = (message, time = 2500) => {
+  Toast.show({
+    type: "success",
+    text1: "Success",
+    text2: message,
+    visibilityTime: time,
+    text2Style: { fontSize: 20, color: "black" },
+  });
+};
+
+export const showInfoToast = message => {
+  Toast.show({
+    type: "info",
+    text1: "Notice",
+    text2: message,
+    visibilityTime: 2500,
+    text2Style: { fontSize: 20, color: "black" },
   });
 };
