@@ -10,7 +10,6 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
-import com.chaching.LisnrModule  // Ensure this import is correct based on your LisnrModule's package
 
 class MainApplication : Application(), ReactApplication {
 
@@ -20,6 +19,7 @@ class MainApplication : Application(), ReactApplication {
                 PackageList(this).packages.apply {
                     // Add your LisnrModule here
                     // add(LisnrModule(reactApplicationContext))
+                    add(LinsrPackage())
                 }
 
             override fun getJSMainModuleName(): String = "index"

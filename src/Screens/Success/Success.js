@@ -29,12 +29,9 @@ const Success = () => {
 
   const onPressOk = () => {
     if (url) {
-      Linking.openURL(url).then(() => {
-        navigation?.navigate(navigationStrings.TAB_BAR);
-      });
-    } else {
-      navigation?.navigate(navigationStrings.TAB_BAR);
+      Linking.openURL(url);
     }
+    navigation?.goBack();
   };
 
   return (
