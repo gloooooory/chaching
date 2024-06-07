@@ -1,6 +1,31 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Audio Ad Recognition App
 
-# Getting Started
+This is a React Native CLI project for Android that integrates the LISNR SDK to enable audio pattern recognition and fetching of ad URLs from a backend server.
+
+## Description
+
+<video width="1024" height="768" controls>
+  <source src="video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+The Audio Ad Recognition App is designed to listen to various types of advertisements, including MP3, WAV, TV ads, radio ads, and YouTube videos. By analyzing the audio patterns using the LISNR SDK, the app extracts relevant text from the advertisements. Once the text is obtained, the app sends a request to the backend server to fetch the corresponding URL associated with the ad. Finally, the app opens the retrieved URL, allowing users to interact with the advertisement.
+
+## Features
+
+- Audio pattern recognition using the LISNR SDK
+- Support for various advertisement formats (MP3, WAV, TV ads, radio ads, YouTube videos)
+- Text extraction from recognized audio patterns
+- Fetching ad URLs from the backend server
+- Opening the retrieved ad URLs within the app
+
+## Prerequisites
+
+Before running the app, ensure that you have the following:
+
+- Node.js and npm (Node Package Manager) installed on your machine
+- Android development environment set up, including Android SDK and Android Studio
+- React Native CLI installed globally
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
@@ -21,6 +46,14 @@ yarn start
 ## Step 2: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+
+### Configure the backend server
+
+Update the `constants.js` file with the appropriate backend server URL.
+
+```javascript
+export const BASE_URL = "http://3.93.186.5:8000";
+```
 
 ### For Android
 
@@ -46,34 +79,34 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+## Deployment
 
-Now that you have successfully run the app, let's modify it.
+To deploy the app to the Google Play Store, follow these steps:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+1. Generate a signed APK:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+   - Open Android Studio and load the `android` folder of your project.
+   - Go to Build > Generate Signed Bundle / APK.
+   - Follow the prompts to create a new keystore or use an existing one.
+   - Select the build variant (e.g., release) and generate the signed APK.
 
-## Congratulations! :tada:
+2. Upload the signed APK to the Google Play Console:
 
-You've successfully run and modified your React Native App. :partying_face:
+   - Create a new developer account or sign in to your existing account on the Google Play Console.
+   - Create a new app and provide the necessary information.
+   - Upload the signed APK to the app release section.
+   - Configure the app's metadata, pricing, and distribution settings.
 
-### Now what?
+3. Submit the app for review:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+   - Once you have completed all the required information and uploaded the APK, submit the app for review.
+   - The Google Play team will review your app and provide feedback if necessary.
 
-# Troubleshooting
+4. Publish the app:
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+   - After the app has been approved, you can publish it to the Google Play Store.
+   - The app will become available for users to download and install.
 
-# Learn More
+## License
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This project is licensed under the [MIT License](LICENSE).
